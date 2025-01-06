@@ -4,167 +4,357 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Bookkeeping Template</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
+        :root {
+            --primary-color: #006E4E;
+            --secondary-color: #40E0D0;
+            --text-color: #333;
+            --background-color: white;
+            --feature-bg: rgba(64, 224, 208, 0.1);
+            --spacing-unit: 1rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background-image: url("background.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            padding: var(--spacing-unit);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .hero {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: white;
+            padding: calc(var(--spacing-unit) * 2);
+            color: var(--text-color);
             border-radius: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
         }
 
-        .hero-content {
-            flex: 1;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .hero-image {
-            flex: 1;
-            max-width: 500px;
+        .header {
+            margin-bottom: calc(var(--spacing-unit) * 2);
         }
 
-        .hero-image img {
+        .logo h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideInRight 0.6s ease forwards 0.3s;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .title {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 0.6s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 2);
+        }
+
+        .preview-image {
+            position: relative;
+            margin-top: var(--spacing-unit);
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .preview-image img {
             width: 100%;
             height: auto;
             border-radius: 10px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #1a1a1a;
-            margin-bottom: 1rem;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .feature-card {
-            background: #fff;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: block;
             transition: transform 0.3s ease;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
+        .preview-image:hover img {
+            transform: scale(1.05);
         }
 
-        .feature-icon {
-            background: #00bcd4;
-            color: white;
-            width: 50px;
-            height: 50px;
+        .magnifier {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            width: 100px;
+            height: 100px;
+            background: var(--background-color);
             border-radius: 50%;
+            border: 2px solid var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        .cta-button {
-            display: inline-block;
-            background: #00bcd4;
+        .preview-image:hover .magnifier {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-unit);
+        }
+
+        .feature-item {
+            background: var(--feature-bg);
+            padding: var(--spacing-unit);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(64, 224, 208, 0.2);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            background: var(--secondary-color);
+            padding: 0.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 1rem;
-            transition: background 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .cta-button:hover {
-            background: #008ba3;
+        .feature-item:hover .feature-icon {
+            transform: rotate(360deg);
+        }
+
+        .instant-access {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            margin-top: calc(var(--spacing-unit) * 2);
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 1.5s;
+        }
+
+        .download-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-top: var(--spacing-unit);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            background-color: #004f37;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 110, 78, 0.2);
+        }
+
+        .show-feature {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
+            .container {
+                padding: var(--spacing-unit);
             }
 
-            .hero-image {
-                order: -1;
+            .magnifier {
+                width: 80px;
+                height: 80px;
+                right: -10px;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-item {
+                padding: calc(var(--spacing-unit) * 0.75);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .magnifier {
+                display: none;
+            }
+
+            .instant-access {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="hero">
-            <div class="hero-content">
-                <h1>Ultimate Bookkeeping Template</h1>
-                <p>Streamline your financial management with our comprehensive bookkeeping solution.</p>
-                <a href="#" class="cta-button">
-                    <i class="fas fa-download"></i> Instant Access
-                </a>
+        <header class="header">
+            <div class="logo">
+                <h3>Openworksheet.com</h3>
             </div>
-            <div class="hero-image">
-                <img src="/api/placeholder/600/400" alt="Bookkeeping Template Dashboard">
-            </div>
-        </div>
-
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-calculator"></i>
+        </header>
+        
+        <main class="content">
+            <div class="left-section">
+                <h1 class="title">Ultimate<br>Bookkeeping<br>Template</h1>
+                
+                <div class="preview-image">
+                    <img src="banner.png" alt="Spreadsheet Preview">
+                    <div class="magnifier">
+                        <img src="banner.png" alt="Magnified Preview">
+                    </div>
                 </div>
-                <h3>Automated Calculations</h3>
-                <p>Save time with intelligent formulas and automatic calculations for all your financial data.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
+            
+            <div class="features">
+                <h2>Main Features</h2>
+                
+                <div class="feature-item">
+                    <div class="feature-icon" aria-label="Automated Calculations">📊</div>
+                    <span>Automated Calculations</span>
                 </div>
-                <h3>Financial Reports</h3>
-                <p>Generate professional reports instantly with built-in templates and customizable options.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-sync"></i>
+                
+                <div class="feature-item">
+                    <div class="feature-icon" aria-label="Dynamic Dashboards">📈</div>
+                    <span>Dynamic Dashboards</span>
                 </div>
-                <h3>Real-time Updates</h3>
-                <p>Stay on top of your finances with automatic updates and real-time tracking.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
+                
+                <div class="feature-item">
+                    <div class="feature-icon" aria-label="Income & Expense Tracking">💰</div>
+                    <span>Income & Expense Tracking</span>
                 </div>
-                <h3>Mobile Friendly</h3>
-                <p>Access your bookkeeping data anywhere, anytime with our responsive design.</p>
+                
+                <div class="feature-item">
+                    <div class="feature-icon" aria-label="Profit Goal Monitoring">🎯</div>
+                    <span>Profit Goal Monitoring</span>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon" aria-label="Calendar Organizer">📅</div>
+                    <span>Calendar Organizer</span>
+                </div>
+                
+                <div class="instant-access">
+                    <span>Instant Access</span>
+                    <span>8 Tabs</span>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Add smooth scrolling for anchor links
+        // Animate features on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const features = document.querySelectorAll('.feature-item');
+            
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show-feature');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            features.forEach((feature, index) => {
+                setTimeout(() => {
+                    observer.observe(feature);
+                }, index * 200);
+            });
+        });
+
+        // Preview image magnifier functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const previewImage = document.querySelector('.preview-image');
+            const magnifier = document.querySelector('.magnifier');
+            const magnifierImg = magnifier.querySelector('img');
+
+            previewImage.addEventListener('mousemove', (e) => {
+                const rect = previewImage.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                magnifierImg.style.transform = `translate(-${xPercent}%, -${yPercent}%) scale(2)`;
+            });
+        });
+
+        // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -172,23 +362,6 @@
                     behavior: 'smooth'
                 });
             });
-        });
-
-        // Add animation to feature cards on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
         });
     </script>
 </body>
