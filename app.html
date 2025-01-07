@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Bookkeeping Template</title>
+    <title>Fiber Optic Maintenance Network AI Tool</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <style>
@@ -24,22 +24,17 @@
         }
 
         body {
-            background-image: url("background.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: url("background.png") center/cover no-repeat;
             min-height: 100vh;
             padding: var(--spacing-unit);
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: calc(var(--spacing-unit) * 2);
             color: var(--text-color);
             border-radius: 20px;
-            opacity: 0;
-            transform: translateY(20px);
             animation: fadeInUp 0.8s ease forwards 0.3s;
         }
 
@@ -54,15 +49,9 @@
             }
         }
 
-        .header {
-            margin-bottom: calc(var(--spacing-unit) * 2);
-        }
-
-        .logo h3 {
+        .header .logo h3 {
             color: var(--primary-color);
             font-size: 1.5rem;
-            transform: translateX(-20px);
-            opacity: 0;
             animation: slideInRight 0.6s ease forwards 0.3s;
         }
 
@@ -81,16 +70,15 @@
             color: var(--primary-color);
             font-size: clamp(2rem, 5vw, 2.5rem);
             margin-bottom: calc(var(--spacing-unit) * 2);
-            line-height: 1.2;
-            animation: leSnake 1.5s ease-in-out infinite;
+            animation: bounce 1.5s ease-in-out infinite;
         }
 
-        @keyframes leSnake {
+        @keyframes bounce {
             0%, 100% {
-                transform: translateY(0px);
+                transform: translateY(0);
             }
             50% {
-                transform: translateY(30px);
+                transform: translateY(-15px);
             }
         }
 
@@ -101,22 +89,24 @@
         }
 
         .preview-image {
-            position: relative;
-            margin-top: var(--spacing-unit);
-            width: 100%;
-            overflow: hidden;
             border-radius: 10px;
-            transform: scale(0.9);
-            opacity: 0;
+            margin-top: 105px;
+            overflow: hidden;
             animation: zoomIn 0.8s ease forwards 1s;
         }
-        .preview-image img{
+
+        .preview-image img {
             width: 100%;
             height: 400px;
+            object-fit: cover;
             border-radius: 10px;
-            display: block;
             transition: transform 0.3s ease;
         }
+
+        .preview-image:hover img {
+            transform: scale(1.05);
+        }
+
         @keyframes zoomIn {
             from {
                 opacity: 0;
@@ -128,14 +118,15 @@
             }
         }
 
-        .preview-image:hover img {
-            transform: scale(1.05);
-        }
-
         .features {
             display: flex;
             flex-direction: column;
             gap: var(--spacing-unit);
+        }
+
+        .features h2 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-unit);
         }
 
         .feature-item {
@@ -147,23 +138,18 @@
             gap: var(--spacing-unit);
             opacity: 0;
             transform: translateX(20px);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .feature-item.show-feature {
-            opacity: 1;
-            transform: translateX(0);
+            animation: fadeInFeature 0.3s ease forwards;
         }
 
         .feature-icon {
             background: var(--secondary-color);
             padding: 0.5rem;
             border-radius: 8px;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             min-width: 40px;
-            color: white;
             transition: transform 0.3s ease;
         }
 
@@ -171,61 +157,49 @@
             transform: rotate(360deg);
         }
 
+        @keyframes fadeInFeature {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .instant-access {
             display: flex;
             align-items: center;
             gap: var(--spacing-unit);
             margin-top: calc(var(--spacing-unit) * 2);
+            justify-content: end;
             flex-wrap: wrap;
             opacity: 0;
             animation: fadeIn 0.8s ease forwards 1.5s;
         }
 
-        .download-btn {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            margin-top: var(--spacing-unit);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-btn:hover {
-            background-color: #004f37;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 110, 78, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: var(--spacing-unit);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
-
-            .content {
-                grid-template-columns: 1fr;
-            }
-
-            .feature-item {
-                padding: calc(var(--spacing-unit) * 0.75);
+            to {
+                opacity: 1;
             }
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 0.5rem;
-            }
+        .door-icon {
+            display: inline-block;
+            font-size: 2.5rem;
+            animation: swingDoor 2s ease-in-out infinite;
+        }
 
-            .title {
-                font-size: 1.8rem;
+        @keyframes swingDoor {
+            0%, 100% {
+                transform: rotateY(0deg);
             }
-
-            .instant-access {
-                flex-direction: column;
-                align-items: flex-start;
+            50% {
+                transform: rotateY(30deg);
             }
         }
     </style>
@@ -240,56 +214,43 @@
         
         <main class="content">
             <div class="left-section">
-                <h1 class="title">Ultimate<br>Bookkeeping<br>Template</h1>
-                
+                <h1 class="title">Fiber Optic<br>Maintenance<br>Network AI Tool</h1>
                 <div class="preview-image">
-                    <img src="bunner6.png" alt="Spreadsheet Preview">
+                    <img src="bunner6.png" alt="Fiber Optic Network Visualization">
                 </div>
             </div>
             
             <div class="features">
                 <h2>Main Features</h2>
-                
-                <div class="feature-item">
-                    <div class="feature-icon" aria-label="Automated Calculations">📊</div>
-                    <span>Automated Calculations</span>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon" aria-label="Dynamic Dashboards">📈</div>
-                    <span>Dynamic Dashboards</span>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon" aria-label="Income & Expense Tracking">💰</div>
-                    <span>Income & Expense Tracking</span>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon" aria-label="Profit Goal Monitoring">🎯</div>
-                    <span>Profit Goal Monitoring</span>
-                </div>
-                
-                <div class="feature-item">
-                    <div class="feature-icon" aria-label="Calendar Organizer">📅</div>
-                    <span>Calendar Organizer</span>
-                </div>
+                <div class="feature-item"><div class="feature-icon">🚓</div>Effective Patrolling</div>
+                <div class="feature-item"><div class="feature-icon">🔧</div>Corrective Maintenance</div>
+                <div class="feature-item"><div class="feature-icon">🛠️</div>Preventive Maintenance</div>
+                <div class="feature-item"><div class="feature-icon">📡</div>Outage Monitoring</div>
+                <div class="feature-item"><div class="feature-icon">🏗️</div>Permanent Repairs</div>
+                <div class="feature-item"><div class="feature-icon">🌌</div>Dark Fiber Testing</div>
+                <div class="feature-item"><div class="feature-icon">🧹</div>MH Cleaning</div>
             </div>
         </main>
     </div>
-
+    <footer>
+        <div class="instant-access">
+            <a href="#" class="login-btn">
+                <span class="door-icon">🚪</span>
+            </a>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const features = document.querySelectorAll('.feature-item');
-            
             features.forEach((feature, index) => {
-                setTimeout(() => {
-                    feature.classList.add('show-feature');
-                }, index * 200); // Staggered delay
+                feature.style.animationDelay = `${index * 0.2}s`;
+                feature.classList.add('show-feature');
+            });
+
+            document.querySelector('.login-btn').addEventListener('click', () => {
+                document.querySelector('.door-icon').style.animation = 'none';
             });
         });
-
-        
     </script>
 </body>
 </html>
